@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {getPeliculas} from '../constants/Peticiones'
-import ListPeliculas from '../Components/ListPeliculas';
-import Loading from '../Components/Loading';
+import {getPeliculas} from '../../../../Constants/Peticiones.js'
+import ListPeliculas from '../widgets/ListPeliculas';
+import Loading from '../../../Components/Loading';
 
 export default class Home extends Component{
     constructor(props){
-        super(props);1
+        super(props);
         this.state = {
             peliculas : [],
             loading: true,
@@ -15,15 +15,11 @@ export default class Home extends Component{
     }
     async componentDidMount(){
         try{
-            setTimeout(async ()=>{
-                const data = await getPeliculas();
-                //console.log(data);
-                this.setState({
-                    peliculas: data,
-                    loading: false,
-                });
-            },0)
-            
+            const data = await getPeliculas();
+            this.setState({
+                peliculas: data,
+                loading: false,
+            });
         }catch(e){
             console.log(e);
         }
@@ -35,7 +31,9 @@ export default class Home extends Component{
                 <Loading />
             :
                 <View style={style.container}>
-                    <ListPeliculas peliculas ={this.state.peliculas} />
+                    <View style = {{paddingTop: hp('3%')}}>
+                        <ListPeliculas peliculas ={this.state.peliculas} navigation={this.props.navigation} />
+                    </View>
                 </View>
         );
     }
@@ -47,5 +45,6 @@ const style = StyleSheet.create({
        width : wp("100%"),
        justifyContent: 'center',
        alignContent: 'center',
+       backgroundColor: '#000000',
     }
 });

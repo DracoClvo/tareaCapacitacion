@@ -1,16 +1,20 @@
 import React  from 'react';
 import {View, Text, Image, StyleSheet, requireNativeComponent} from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
-const Pelicula = ({nombre}) => (
-    <View style = {style.container}>
-        <View style = {style.cardName}>
-            <Image style = {style.imagenPelicula} source = {require('../assets/images/iconoPelicula.png')}/>
-            <Text style = {{marginLeft: wp('3%'), fontSize : hp('2.5%')}}>
-                {nombre}
-            </Text>
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import {iconosPeliculas} from '../../../../Constants/Array'
+const Pelicula = ({nombre, navigation, id}) => (
+    <TouchableNativeFeedback onPress ={()=> {navigation.navigate('PeliculasInfo',{id:id})}}>
+         <View style = {style.container}>
+            <View style = {style.cardName}>
+                <Image style = {style.imagenPelicula} source = {iconosPeliculas.default}/>
+                <Text style = {{marginLeft: wp('3%'), fontSize : hp('2.5%')}}>
+                    {nombre}
+                </Text>
+            </View>
         </View>
-    </View>
+    </TouchableNativeFeedback>
+   
 );
 const style = StyleSheet.create({
     container:{
@@ -23,7 +27,7 @@ const style = StyleSheet.create({
         flexDirection: "row",
         height: hp("8%"),
         width: wp ("80%"),
-        backgroundColor: "#ff8a80",
+        backgroundColor: "#FFFC33",
         alignItems: 'center',
         borderRadius: hp('3%'),
     },

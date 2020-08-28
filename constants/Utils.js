@@ -1,0 +1,1 @@
+export const cleanPhrase = cadena => cadena.replace(/(\r\n|\n|\r)/gm,' ')
